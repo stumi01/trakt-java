@@ -1,7 +1,7 @@
 trakt-java
 ==========
 
-A Java wrapper around the [trakt v2 API][1] using [retrofit 2][2].
+A Java wrapper around the [trakt v2 API][1] using [retrofit 2][2] and [Rx2][5].
 
 Pull requests are welcome.
 
@@ -91,3 +91,4 @@ Do not just copy, make it better.
  [2]: https://square.github.io/retrofit/
  [3]: https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2
  [4]: https://square.github.io/retrofit/#download
+ [5]: https://github.com/ReactiveX/RxJava
