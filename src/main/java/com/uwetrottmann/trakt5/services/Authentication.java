@@ -2,7 +2,8 @@ package com.uwetrottmann.trakt5.services;
 
 import com.uwetrottmann.trakt5.TraktV2;
 import com.uwetrottmann.trakt5.entities.AccessToken;
-import retrofit2.Call;
+
+import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -11,7 +12,7 @@ public interface Authentication {
 
     @FormUrlEncoded
     @POST(TraktV2.OAUTH2_TOKEN_URL)
-    Call<AccessToken> exchangeCodeForAccessToken(
+    Observable<AccessToken> exchangeCodeForAccessToken(
             @Field("grant_type") String grantType,
             @Field("code") String code,
             @Field("client_id") String clientId,
@@ -21,7 +22,7 @@ public interface Authentication {
 
     @FormUrlEncoded
     @POST(TraktV2.OAUTH2_TOKEN_URL)
-    Call<AccessToken> refreshAccessToken(
+    Observable<AccessToken> refreshAccessToken(
             @Field("grant_type") String grantType,
             @Field("refresh_token") String refreshToken,
             @Field("client_id") String clientId,

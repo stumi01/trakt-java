@@ -2,11 +2,12 @@ package com.uwetrottmann.trakt5.services;
 
 import com.uwetrottmann.trakt5.entities.CalendarMovieEntry;
 import com.uwetrottmann.trakt5.entities.CalendarShowEntry;
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 import java.util.List;
+
+import io.reactivex.Observable;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface Calendars {
 
@@ -16,7 +17,7 @@ public interface Calendars {
      * @see #shows(String, int)
      */
     @GET("calendars/my/shows/{startdate}/{days}")
-    Call<List<CalendarShowEntry>> myShows(
+    Observable<List<CalendarShowEntry>> myShows(
             @Path("startdate") String startDate,
             @Path("days") int days
     );
@@ -27,7 +28,7 @@ public interface Calendars {
      * @see #newShows(String, int)
      */
     @GET("calendars/my/shows/new/{startdate}/{days}")
-    Call<List<CalendarShowEntry>> myNewShows(
+    Observable<List<CalendarShowEntry>> myNewShows(
             @Path("startdate") String startDate,
             @Path("days") int days
     );
@@ -38,7 +39,7 @@ public interface Calendars {
      * @see #seasonPremieres(String, int)
      */
     @GET("calendars/my/shows/premieres/{startdate}/{days}")
-    Call<List<CalendarShowEntry>> mySeasonPremieres(
+    Observable<List<CalendarShowEntry>> mySeasonPremieres(
             @Path("startdate") String startDate,
             @Path("days") int days
     );
@@ -49,7 +50,7 @@ public interface Calendars {
      * @see #movies(String, int)
      */
     @GET("calendars/my/movies/{startdate}/{days}")
-    Call<List<CalendarMovieEntry>> myMovies(
+    Observable<List<CalendarMovieEntry>> myMovies(
             @Path("startdate") String startDate,
             @Path("days") int days
     );
@@ -58,10 +59,10 @@ public interface Calendars {
      * Returns all shows airing during the time period specified.
      *
      * @param startDate Start the calendar on this date. Example: 2014-09-01.
-     * @param days Number of days to display. Example: 7.
+     * @param days      Number of days to display. Example: 7.
      */
     @GET("calendars/all/shows/{startdate}/{days}")
-    Call<List<CalendarShowEntry>> shows(
+    Observable<List<CalendarShowEntry>> shows(
             @Path("startdate") String startDate,
             @Path("days") int days
     );
@@ -70,10 +71,10 @@ public interface Calendars {
      * Returns all new show premieres (season 1, episode 1) airing during the time period specified.
      *
      * @param startDate Start the calendar on this date. Example: 2014-09-01.
-     * @param days Number of days to display. Example: 7.
+     * @param days      Number of days to display. Example: 7.
      */
     @GET("calendars/all/shows/new/{startdate}/{days}")
-    Call<List<CalendarShowEntry>> newShows(
+    Observable<List<CalendarShowEntry>> newShows(
             @Path("startdate") String startDate,
             @Path("days") int days
     );
@@ -82,10 +83,10 @@ public interface Calendars {
      * Returns all show premieres (any season, episode 1) airing during the time period specified.
      *
      * @param startDate Start the calendar on this date. Example: 2014-09-01.
-     * @param days Number of days to display. Example: 7.
+     * @param days      Number of days to display. Example: 7.
      */
     @GET("calendars/all/shows/premieres/{startdate}/{days}")
-    Call<List<CalendarShowEntry>> seasonPremieres(
+    Observable<List<CalendarShowEntry>> seasonPremieres(
             @Path("startdate") String startDate,
             @Path("days") int days
     );
@@ -94,10 +95,10 @@ public interface Calendars {
      * Returns all movies with a release date during the time period specified.
      *
      * @param startDate Start the calendar on this date. Example: 2014-09-01.
-     * @param days Number of days to display. Example: 7.
+     * @param days      Number of days to display. Example: 7.
      */
     @GET("calendars/all/movies/{startdate}/{days}")
-    Call<List<CalendarMovieEntry>> movies(
+    Observable<List<CalendarMovieEntry>> movies(
             @Path("startdate") String startDate,
             @Path("days") int days
     );

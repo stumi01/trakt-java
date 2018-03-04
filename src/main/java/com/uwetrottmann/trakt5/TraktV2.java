@@ -17,6 +17,8 @@ import com.uwetrottmann.trakt5.services.Seasons;
 import com.uwetrottmann.trakt5.services.Shows;
 import com.uwetrottmann.trakt5.services.Sync;
 import com.uwetrottmann.trakt5.services.Users;
+
+import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
@@ -206,14 +208,14 @@ public class TraktV2 {
      *
      * @param authCode A valid authorization code (see {@link #buildAuthorizationUrl(String)}).
      */
-    public Response<AccessToken> exchangeCodeForAccessToken(String authCode) throws IOException {
+    public Observable<AccessToken> exchangeCodeForAccessToken(String authCode) throws IOException {
         return authentication().exchangeCodeForAccessToken(
                 "authorization_code",
                 authCode,
                 apiKey(),
                 clientSecret,
                 redirectUri
-        ).execute();
+        );
     }
 
     /**
@@ -225,14 +227,14 @@ public class TraktV2 {
      *
      * <p>On failure re-authorization of your app is required (see {@link #buildAuthorizationUrl}).
      */
-    public Response<AccessToken> refreshAccessToken() throws IOException {
+    public Observable<AccessToken> refreshAccessToken() throws IOException {
         return authentication().refreshAccessToken(
                 "refresh_token",
                 refreshToken(),
                 apiKey(),
                 clientSecret,
                 redirectUri
-        ).execute();
+        );
     }
 
     /**

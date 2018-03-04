@@ -8,6 +8,8 @@ import com.uwetrottmann.trakt5.entities.Ratings;
 import com.uwetrottmann.trakt5.entities.Stats;
 import com.uwetrottmann.trakt5.entities.TrendingMovie;
 import com.uwetrottmann.trakt5.enums.Extended;
+
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -24,7 +26,7 @@ public interface Movies {
      * @param limit Number of results to return per page. If {@code null} defaults to 10.
      */
     @GET("movies/popular")
-    Call<List<Movie>> popular(
+    Observable<List<Movie>> popular(
             @Query("page") Integer page,
             @Query("limit") Integer limit,
             @Query(value = "extended", encoded = true) Extended extended
@@ -37,7 +39,7 @@ public interface Movies {
      * @param limit Number of results to return per page. If {@code null} defaults to 10.
      */
     @GET("movies/trending")
-    Call<List<TrendingMovie>> trending(
+    Observable<List<TrendingMovie>> trending(
             @Query("page") Integer page,
             @Query("limit") Integer limit,
             @Query(value = "extended", encoded = true) Extended extended
@@ -49,7 +51,7 @@ public interface Movies {
      * @param movieId trakt ID, trakt slug, or IMDB ID. Example: "tron-legacy-2010".
      */
     @GET("movies/{id}")
-    Call<Movie> summary(
+    Observable<Movie> summary(
             @Path("id") String movieId,
             @Query(value = "extended", encoded = true) Extended extended
     );
@@ -60,7 +62,7 @@ public interface Movies {
      * @param movieId trakt ID, trakt slug, or IMDB ID. Example: "tron-legacy-2010".
      */
     @GET("movies/{id}/translations")
-    Call<List<MovieTranslation>> translations(
+    Observable<List<MovieTranslation>> translations(
             @Path("id") String movieId
     );
 
@@ -71,7 +73,7 @@ public interface Movies {
      * @param language 2-letter language code (ISO 639-1).
      */
     @GET("movies/{id}/translations/{language}")
-    Call<List<MovieTranslation>> translation(
+    Observable<List<MovieTranslation>> translation(
             @Path("id") String movieId,
             @Path("language") String language
     );
@@ -84,7 +86,7 @@ public interface Movies {
      * @param limit Number of results to return per page. If {@code null} defaults to 10.
      */
     @GET("movies/{id}/comments")
-    Call<List<Comment>> comments(
+    Observable<List<Comment>> comments(
             @Path("id") String movieId,
             @Query("page") Integer page,
             @Query("limit") Integer limit,
@@ -97,7 +99,7 @@ public interface Movies {
      * @param movieId trakt ID, trakt slug, or IMDB ID. Example: "tron-legacy-2010".
      */
     @GET("movies/{id}/people")
-    Call<Credits> people(
+    Observable<Credits> people(
             @Path("id") String movieId
     );
 
@@ -107,7 +109,7 @@ public interface Movies {
      * @param movieId trakt ID, trakt slug, or IMDB ID. Example: "tron-legacy-2010".
      */
     @GET("movies/{id}/ratings")
-    Call<Ratings> ratings(
+    Observable<Ratings> ratings(
             @Path("id") String movieId
     );
 
@@ -115,7 +117,7 @@ public interface Movies {
      * Returns lots of movie stats.
      */
     @GET("movies/{id}/stats")
-    Call<Stats> stats(
+    Observable<Stats> stats(
             @Path("id") String movieId
     );
 

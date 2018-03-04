@@ -6,6 +6,8 @@ import com.uwetrottmann.trakt5.entities.Ratings;
 import com.uwetrottmann.trakt5.entities.Season;
 import com.uwetrottmann.trakt5.entities.Stats;
 import com.uwetrottmann.trakt5.enums.Extended;
+
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -21,7 +23,7 @@ public interface Seasons {
      * @param showId trakt ID, trakt slug, or IMDB ID. Example: "game-of-thrones".
      */
     @GET("shows/{id}/seasons")
-    Call<List<Season>> summary(
+    Observable<List<Season>> summary(
             @Path("id") String showId,
             @Query(value = "extended", encoded = true) Extended extended
     );
@@ -33,7 +35,7 @@ public interface Seasons {
      * @param season Season number.
      */
     @GET("shows/{id}/seasons/{season}")
-    Call<List<Episode>> season(
+    Observable<List<Episode>> season(
             @Path("id") String showId,
             @Path("season") int season,
             @Query(value = "extended", encoded = true) Extended extended
@@ -46,7 +48,7 @@ public interface Seasons {
      * @param season Season number.
      */
     @GET("shows/{id}/seasons/{season}/comments")
-    Call<List<Comment>> comments(
+    Observable<List<Comment>> comments(
             @Path("id") String showId,
             @Path("season") int season
     );
@@ -58,7 +60,7 @@ public interface Seasons {
      * @param season Season number.
      */
     @GET("shows/{id}/seasons/{season}/ratings")
-    Call<Ratings> ratings(
+    Observable<Ratings> ratings(
             @Path("id") String showId,
             @Path("season") int season
     );
@@ -67,7 +69,7 @@ public interface Seasons {
      * Returns lots of season stats.
      */
     @GET("shows/{id}/seasons/{season}/stats")
-    Call<Stats> stats(
+    Observable<Stats> stats(
             @Path("id") String showId,
             @Path("season") int season
     );

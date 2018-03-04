@@ -40,15 +40,21 @@ public class TraktV2Authenticator implements Authenticator {
         }
 
         // try to refresh the access token with the refresh token
-        retrofit2.Response<AccessToken> refreshResponse = trakt.refreshAccessToken();
-        if (!refreshResponse.isSuccessful()) {
+        AccessToken accessToken = null;
+        try{
+            accessToken = trakt.refreshAccessToken().blockingFirst();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+        if (accessToken == null){
             return null; // failed to retrieve a token, give up.
         }
 
         // store the new tokens
-        String accessToken = refreshResponse.body().access_token;
-        trakt.accessToken(accessToken);
-        trakt.refreshToken(refreshResponse.body().refresh_token);
+        String accessTokenString = accessToken.access_token;
+        trakt.accessToken(accessTokenString);
+        trakt.refreshToken(accessToken.refresh_token);
 
         // retry request
         return response.request().newBuilder()

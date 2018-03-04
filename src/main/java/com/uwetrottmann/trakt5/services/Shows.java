@@ -9,6 +9,8 @@ import com.uwetrottmann.trakt5.entities.Stats;
 import com.uwetrottmann.trakt5.entities.Translation;
 import com.uwetrottmann.trakt5.entities.TrendingShow;
 import com.uwetrottmann.trakt5.enums.Extended;
+
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -25,7 +27,7 @@ public interface Shows {
      * @param limit Number of results to return per page. If {@code null} defaults to 10.
      */
     @GET("shows/popular")
-    Call<List<Show>> popular(
+    Observable<List<Show>> popular(
             @Query("page") Integer page,
             @Query("limit") Integer limit,
             @Query(value = "extended", encoded = true) Extended extended
@@ -38,7 +40,7 @@ public interface Shows {
      * @param limit Number of results to return per page. If {@code null} defaults to 10.
      */
     @GET("shows/trending")
-    Call<List<TrendingShow>> trending(
+    Observable<List<TrendingShow>> trending(
             @Query("page") Integer page,
             @Query("limit") Integer limit,
             @Query(value = "extended", encoded = true) Extended extended
@@ -50,7 +52,7 @@ public interface Shows {
      * @param showId trakt ID, trakt slug, or IMDB ID. Example: "game-of-thrones".
      */
     @GET("shows/{id}")
-    Call<Show> summary(
+    Observable<Show> summary(
             @Path("id") String showId,
             @Query(value = "extended", encoded = true) Extended extended
     );
@@ -61,7 +63,7 @@ public interface Shows {
      * @param showId trakt ID, trakt slug, or IMDB ID. Example: "game-of-thrones".
      */
     @GET("shows/{id}/translations")
-    Call<List<Translation>> translations(
+    Observable<List<Translation>> translations(
             @Path("id") String showId
     );
 
@@ -72,7 +74,7 @@ public interface Shows {
      * @param language 2-letter language code (ISO 639-1).
      */
     @GET("shows/{id}/translations/{language}")
-    Call<List<Translation>> translation(
+    Observable<List<Translation>> translation(
             @Path("id") String showId,
             @Path("language") String language
     );
@@ -85,7 +87,7 @@ public interface Shows {
      * @param limit Number of results to return per page. If {@code null} defaults to 10.
      */
     @GET("shows/{id}/comments")
-    Call<List<Comment>> comments(
+    Observable<List<Comment>> comments(
             @Path("id") String showId,
             @Query("page") Integer page,
             @Query("limit") Integer limit,
@@ -107,7 +109,7 @@ public interface Shows {
      * @param specials Include specials as season 0.
      */
     @GET("shows/{id}/progress/collection")
-    Call<BaseShow> collectedProgress(
+    Observable<BaseShow> collectedProgress(
             @Path("id") String showId,
             @Query("hidden") Boolean hidden,
             @Query("specials") Boolean specials,
@@ -128,7 +130,7 @@ public interface Shows {
      * @param specials Include specials as season 0.
      */
     @GET("shows/{id}/progress/watched")
-    Call<BaseShow> watchedProgress(
+    Observable<BaseShow> watchedProgress(
             @Path("id") String showId,
             @Query("hidden") Boolean hidden,
             @Query("specials") Boolean specials,
@@ -141,7 +143,7 @@ public interface Shows {
      * @param showId trakt ID, trakt slug, or IMDB ID. Example: "game-of-thrones".
      */
     @GET("shows/{id}/people")
-    Call<Credits> people(
+    Observable<Credits> people(
             @Path("id") String showId
     );
 
@@ -151,7 +153,7 @@ public interface Shows {
      * @param showId trakt ID, trakt slug, or IMDB ID. Example: "game-of-thrones".
      */
     @GET("shows/{id}/ratings")
-    Call<Ratings> ratings(
+    Observable<Ratings> ratings(
             @Path("id") String showId
     );
 
@@ -159,7 +161,7 @@ public interface Shows {
      * Returns lots of show stats.
      */
     @GET("shows/{id}/stats")
-    Call<Stats> stats(
+    Observable<Stats> stats(
             @Path("id") String showId
     );
 
@@ -167,7 +169,7 @@ public interface Shows {
      * Returns related and similar shows.
      */
     @GET("shows/{id}/related")
-    Call<List<Show>> related(
+    Observable<List<Show>> related(
             @Path("id") String showId,
             @Query("page") Integer page,
             @Query("limit") Integer limit,

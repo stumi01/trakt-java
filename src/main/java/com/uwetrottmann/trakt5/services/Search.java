@@ -4,6 +4,8 @@ import com.uwetrottmann.trakt5.entities.SearchResult;
 import com.uwetrottmann.trakt5.enums.Extended;
 import com.uwetrottmann.trakt5.enums.IdType;
 import com.uwetrottmann.trakt5.enums.Type;
+
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -22,7 +24,7 @@ public interface Search {
      * @see <a href="http://docs.trakt.apiary.io/#introduction/pagination">Pagination</a>
      */
     @GET("search/{type}")
-    Call<List<SearchResult>> textQuery(
+    Observable<List<SearchResult>> textQuery(
             @Path("type") Type type,
             @Query("query") String query,
             @Query("years") String years,
@@ -40,7 +42,7 @@ public interface Search {
      * @see #textQuery textQuery
      */
     @GET("search/movie")
-    Call<List<SearchResult>> textQueryMovie(
+    Observable<List<SearchResult>> textQueryMovie(
             @Query("query") String query,
             @Query("years") String years,
             @Query("genres") String genres,
@@ -58,7 +60,7 @@ public interface Search {
      * @see #textQuery textQuery
      */
     @GET("search/show")
-    Call<List<SearchResult>> textQueryShow(
+    Observable<List<SearchResult>> textQueryShow(
             @Query("query") String query,
             @Query("years") String years,
             @Query("genres") String genres,
@@ -82,7 +84,7 @@ public interface Search {
      * @see <a href="http://docs.trakt.apiary.io/#introduction/pagination">Pagination</a>
      */
     @GET("search/{id_type}/{id}")
-    Call<List<SearchResult>> idLookup(
+    Observable<List<SearchResult>> idLookup(
             @Path(value = "id_type", encoded = true) IdType idType,
             @Path(value = "id", encoded = true) String id,
             @Query("type") Type type,

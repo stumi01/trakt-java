@@ -13,6 +13,8 @@ import com.uwetrottmann.trakt5.entities.WatchlistedEpisode;
 import com.uwetrottmann.trakt5.entities.WatchlistedSeason;
 import com.uwetrottmann.trakt5.enums.Extended;
 import com.uwetrottmann.trakt5.enums.RatingsFilter;
+
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -32,7 +34,7 @@ public interface Sync {
      * pull down a ton of data only to see nothing has actually changed.
      */
     @GET("sync/last_activities")
-    Call<LastActivities> lastActivities();
+    Observable<LastActivities> lastActivities();
 
     /**
      * <b>OAuth Required</b>
@@ -41,7 +43,7 @@ public interface Sync {
      * or on physical media.
      */
     @GET("sync/collection/movies")
-    Call<List<BaseMovie>> collectionMovies(
+    Observable<List<BaseMovie>> collectionMovies(
             @Query(value = "extended", encoded = true) Extended extended
     );
 
@@ -52,7 +54,7 @@ public interface Sync {
      * on physical media.
      */
     @GET("sync/collection/shows")
-    Call<List<BaseShow>> collectionShows(
+    Observable<List<BaseShow>> collectionShows(
             @Query(value = "extended", encoded = true) Extended extended
     );
 
@@ -64,7 +66,7 @@ public interface Sync {
      * @param items A list of movies, shows, seasons or episodes.
      */
     @POST("sync/collection")
-    Call<SyncResponse> addItemsToCollection(
+    Observable<SyncResponse> addItemsToCollection(
             @Body SyncItems items
     );
 
@@ -76,7 +78,7 @@ public interface Sync {
      * @param items A list of movies, shows, seasons or episodes.
      */
     @POST("sync/collection/remove")
-    Call<SyncResponse> deleteItemsFromCollection(
+    Observable<SyncResponse> deleteItemsFromCollection(
             @Body SyncItems items
     );
 
@@ -86,7 +88,7 @@ public interface Sync {
      * <p> Returns all movies a user has watched.
      */
     @GET("sync/watched/movies")
-    Call<List<BaseMovie>> watchedMovies(
+    Observable<List<BaseMovie>> watchedMovies(
             @Query(value = "extended", encoded = true) Extended extended
     );
 
@@ -96,7 +98,7 @@ public interface Sync {
      * <p> Returns all shows a user has watched.
      */
     @GET("sync/watched/shows")
-    Call<List<BaseShow>> watchedShows(
+    Observable<List<BaseShow>> watchedShows(
             @Query(value = "extended", encoded = true) Extended extended
     );
 
@@ -110,7 +112,7 @@ public interface Sync {
      * @param items A list of movies, shows, seasons or episodes.
      */
     @POST("sync/history")
-    Call<SyncResponse> addItemsToWatchedHistory(
+    Observable<SyncResponse> addItemsToWatchedHistory(
             @Body SyncItems items
     );
 
@@ -124,7 +126,7 @@ public interface Sync {
      * @param items A list of movies, shows, seasons or episodes.
      */
     @POST("sync/history/remove")
-    Call<SyncResponse> deleteItemsFromWatchedHistory(
+    Observable<SyncResponse> deleteItemsFromWatchedHistory(
             @Body SyncItems items
     );
 
@@ -136,7 +138,7 @@ public interface Sync {
      * @param filter Filter for a specific rating.
      */
     @GET("sync/ratings/movies{rating}")
-    Call<List<RatedMovie>> ratingsMovies(
+    Observable<List<RatedMovie>> ratingsMovies(
             @Path(value = "rating", encoded = true) RatingsFilter filter,
             @Query(value = "extended", encoded = true) Extended extended
     );
@@ -149,7 +151,7 @@ public interface Sync {
      * @param filter Filter for a specific rating.
      */
     @GET("sync/ratings/shows{rating}")
-    Call<List<RatedShow>> ratingsShows(
+    Observable<List<RatedShow>> ratingsShows(
             @Path(value = "rating", encoded = true) RatingsFilter filter,
             @Query(value = "extended", encoded = true) Extended extended
     );
@@ -162,7 +164,7 @@ public interface Sync {
      * @param filter Filter for a specific rating.
      */
     @GET("sync/ratings/seasons{rating}")
-    Call<List<RatedSeason>> ratingsSeasons(
+    Observable<List<RatedSeason>> ratingsSeasons(
             @Path(value = "rating", encoded = true) RatingsFilter filter,
             @Query(value = "extended", encoded = true) Extended extended
     );
@@ -175,7 +177,7 @@ public interface Sync {
      * @param filter Filter for a specific rating.
      */
     @GET("sync/ratings/episodes{rating}")
-    Call<List<RatedEpisode>> ratingsEpisodes(
+    Observable<List<RatedEpisode>> ratingsEpisodes(
             @Path(value = "rating", encoded = true) RatingsFilter filter,
             @Query(value = "extended", encoded = true) Extended extended
     );
@@ -188,7 +190,7 @@ public interface Sync {
      * @param items A list of movies, shows, seasons or episodes.
      */
     @POST("sync/ratings")
-    Call<SyncResponse> addRatings(
+    Observable<SyncResponse> addRatings(
             @Body SyncItems items
     );
 
@@ -200,7 +202,7 @@ public interface Sync {
      * @param items A list of movies, shows, seasons or episodes.
      */
     @POST("sync/ratings/remove")
-    Call<SyncResponse> deleteRatings(
+    Observable<SyncResponse> deleteRatings(
             @Body SyncItems items
     );
 
@@ -212,7 +214,7 @@ public interface Sync {
      * removed from the watchlist. To track what the user is actively watching, use the progress APIs.
      */
     @GET("sync/watchlist/movies")
-    Call<List<BaseMovie>> watchlistMovies(
+    Observable<List<BaseMovie>> watchlistMovies(
             @Query(value = "extended", encoded = true) Extended extended
     );
 
@@ -223,7 +225,7 @@ public interface Sync {
      * removed from the watchlist. To track what the user is actively watching, use the progress APIs.
      */
     @GET("sync/watchlist/shows")
-    Call<List<BaseShow>> watchlistShows(
+    Observable<List<BaseShow>> watchlistShows(
             @Query(value = "extended", encoded = true) Extended extended
     );
 
@@ -234,7 +236,7 @@ public interface Sync {
      * automatically removed from the watchlist. To track what the user is actively watching, use the progress APIs.
      */
     @GET("sync/watchlist/seasons")
-    Call<List<WatchlistedSeason>> watchlistSeasons(
+    Observable<List<WatchlistedSeason>> watchlistSeasons(
             @Query(value = "extended", encoded = true) Extended extended
     );
 
@@ -245,7 +247,7 @@ public interface Sync {
      * automatically removed from the watchlist. To track what the user is actively watching, use the progress APIs.
      */
     @GET("sync/watchlist/episodes")
-    Call<List<WatchlistedEpisode>> watchlistEpisodes(
+    Observable<List<WatchlistedEpisode>> watchlistEpisodes(
             @Query(value = "extended", encoded = true) Extended extended
     );
 
@@ -257,7 +259,7 @@ public interface Sync {
      * @param items A list of movies, shows, seasons or episodes.
      */
     @POST("sync/watchlist")
-    Call<SyncResponse> addItemsToWatchlist(
+    Observable<SyncResponse> addItemsToWatchlist(
             @Body SyncItems items
     );
 
@@ -269,7 +271,7 @@ public interface Sync {
      * @param items A list of movies, shows, seasons or episodes.
      */
     @POST("sync/watchlist/remove")
-    Call<SyncResponse> deleteItemsFromWatchlist(
+    Observable<SyncResponse> deleteItemsFromWatchlist(
             @Body SyncItems items
     );
 
