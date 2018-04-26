@@ -210,7 +210,7 @@ public class TraktV2 {
      *
      * @param authCode A valid authorization code (see {@link #buildAuthorizationUrl(String)}).
      */
-    public Observable<AccessToken> exchangeCodeForAccessToken(String authCode) throws IOException {
+    public Observable<AccessToken> exchangeCodeForAccessToken(String authCode) {
         return authentication().exchangeCodeForAccessToken(
                 "authorization_code",
                 authCode,
@@ -229,7 +229,7 @@ public class TraktV2 {
      *
      * <p>On failure re-authorization of your app is required (see {@link #buildAuthorizationUrl}).
      */
-    public Observable<AccessToken> refreshAccessToken() throws IOException {
+    public Observable<AccessToken> refreshAccessToken() {
         return authentication().refreshAccessToken(
                 "refresh_token",
                 refreshToken(),
